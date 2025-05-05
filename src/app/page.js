@@ -1,17 +1,17 @@
-import user_logo from "@/assets/user_logo.png";
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
 import { FaBookBookmark, FaHandshakeSimple } from "react-icons/fa6";
 import { SiDatefns } from "react-icons/si";
-import xyz from "../assets/xyz.webp";
+import user_logo from "../../public/images/user_logo.png";
+import xyz from "../../public/images/xyz.webp";
 import Flex from "./components/Flex";
 import LabelText from "./components/LabelText";
 import MutedText from "./components/MutedText";
 import Paragraph from "./components/Paragraph";
 import Root from "./home_layout/Root";
 
-export default function Home() {
+function Home() {
   return (
     <Root>
       <div className="bg-bg w-[90%] mx-auto pt-10 pb-10 px-2 md:pt-16">
@@ -154,3 +154,4 @@ export default function Home() {
     </Root>
   );
 }
+export default Home;

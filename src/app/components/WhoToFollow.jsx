@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import user_logo from '../../assets/user_logo.png';
+import user_logo from '../../../public/images/user_logo.png';
 
 export default function WhoToFollow() {
     return (

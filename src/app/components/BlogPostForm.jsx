@@ -1,46 +1,96 @@
 'use client';
 
-import { useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import { useForm } from 'react-hook-form';
+import {toast} from "react-toastify";
 
  function BlogPostForm() {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
         reset,
-    } = useForm();
+    } = useForm({
+        mode: 'onBlur',
+        defaultValues: {
+            title: '',
+            body: '',
+            category: '',
+            subcategory: '',
+            image: null,
+        }
+    });
 
     const [preview, setPreview] = useState(null);
     const [subcategories, setSubcategories] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
-
-    // Parent → Subcategory Mapping
-    const CATEGORY_SUBCATEGORY_MAP = {
-        Technology: ['Web Development', 'AI', 'Mobile App'],
-        Lifestyle: ['Fitness', 'Fashion', 'Food'],
-        Travel: ['Adventure', 'Cultural', 'Solo Travel'],
-    };
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+     const fileInputRef = useRef(null);
+    useEffect(() => {
+        const fetchSubcategories = async () => {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}categories`);
+            const data = await res.json();
+            if (res.ok) {
+                setCategories(data?.categories)
+            }
+        }
+        fetchSubcategories();
+    }, []);
 
     const handleCategoryChange = (e) => {
         const category = e.target.value;
         setSelectedCategory(category);
-        setSubcategories(category ? CATEGORY_SUBCATEGORY_MAP[category] || [] : []);
     };
 
-    const onSubmit = (data) => {
-        console.log('Form Data:', data);
-        reset();
-        setPreview(null);
-        setSelectedCategory('');
-        setSubcategories([]);
+    const onSubmit = async (data) => {
+
+try {
+            setIsLoading(true);
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('body', data.body);
+    formData.append('category', selectedCategory);
+    //todo useAuth Hook Have to implement here
+    formData.append('author', );
+    if (data.image instanceof File) {
+        formData.append('image', data.image);
+    }
+    console.dir(data);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post`, {
+        method: 'POST',
+        body:formData
+    });
+    const result = await res.json();
+    if (!res.ok) {
+       setIsError(true);
+       setIsLoading(false);
+       return
+    }
+    setIsError(false);
+    setIsLoading(false);
+    reset();
+    setPreview(null);
+    setSelectedCategory('');
+    setSubcategories([]);
+    toast.success("Blog post published successfully");
+}catch (err) {
+            console.error('Error:', err);
+            setIsError(true);
+            setIsLoading(false);
+
+}
     };
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            setValue('image', file);
             const reader = new FileReader();
             reader.onload = (e) => {
+
                 setPreview(e.target.result);
             };
             reader.readAsDataURL(file);
@@ -50,6 +100,7 @@ import { useForm } from 'react-hook-form';
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
+            encType="multipart/form-data"
             className="max-w-2xl mx-auto p-6 bg-gray-900 text-white rounded-lg shadow-md"
         >
             <h2 className="text-2xl font-semibold mb-4">Create New Blog Post</h2>
@@ -77,7 +128,7 @@ import { useForm } from 'react-hook-form';
                 </label>
                 <textarea
                     id="content"
-                    {...register('content', { required: 'Content is required' })}
+                    {...register('body', { required: 'Content is required' })}
                     rows="5"
                     className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none"
                     placeholder="Write your blog content..."
@@ -98,10 +149,11 @@ import { useForm } from 'react-hook-form';
                     onChange={handleCategoryChange}
                     className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none"
                 >
-                    <option value="">Select a category</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Lifestyle">Lifestyle</option>
-                    <option value="Travel">Travel</option>
+
+                    <option value="" disabled>Select a category</option>
+                    { categories?.map((cat) => (
+                        <option key={cat._id} value={cat._id}>{cat.name}</option>
+                    ))}
                 </select>
             </div>
 
@@ -135,10 +187,9 @@ import { useForm } from 'react-hook-form';
                     id="image"
                     type="file"
                     accept="image/*"
-                    onChange={(e) => {
-                        handleImageChange(e);
-                        register('image').onChange(e); // Register file input
-                    }}
+                    name="image"
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
                     className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none"
                 />
                 {errors.image && (
@@ -156,10 +207,16 @@ import { useForm } from 'react-hook-form';
             {/* Submit Button */}
             <button
                 type="submit"
+                disabled={isLoading}
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition"
             >
-                Publish Post
+                {isLoading ? 'Publishing...' : "Publish Post"}
             </button>
+            {!!isError && (
+                <div className="bg-red-500 text-white p-3 rounded mb-4 mt-4">
+                    An error occurred while publishing your post. Please try again later.
+                </div>
+            )}
         </form>
     );
 }

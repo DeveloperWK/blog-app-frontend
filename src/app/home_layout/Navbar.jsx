@@ -2,14 +2,15 @@
 
 import LabelText from "@/app/components/LabelText";
 import Image from "next/image";
+import Link from "next/link";
 import { CiSearch } from "react-icons/ci";
 import { FaBarsProgress } from "react-icons/fa6";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { TfiWrite } from "react-icons/tfi";
-import user_logo from "../../assets/user_logo.png";
+import user_logo from "../../../public/images/user_logo.png";
 import Flex from "../components/Flex";
 
-export default function Navbar({ bar }) {
+function Navbar({ bar }) {
   return (
     <nav className="bg-bg fixed top-0 w-full z-10">
       <div className="border-b border-solid border-border_color rounded-bl-2xl rounded-br-2xl">
@@ -46,12 +47,12 @@ export default function Navbar({ bar }) {
             <Flex className="gap-x-1 cursor-pointer border border-solid border-border_color w-10 h-10 rounded-full justify-center md:border-none md:w-auto md:h-auto md:rounded-none hover:bg-border_color">
               <CiSearch className="text-primary text-lg lg:hidden" />
             </Flex>
-
-            <Flex className="gap-x-1 cursor-pointer border border-solid border-border_color w-10 h-10 rounded-full justify-center md:border-none md:w-auto md:h-auto md:rounded-none hover:bg-border_color">
-              <TfiWrite className="text-primary text-lg" />
-              <LabelText className="hidden md:block" children={"write"} />
-            </Flex>
-
+            <Link href={"/user/post/write-post"}>
+              <Flex className="gap-x-1 cursor-pointer border border-solid border-border_color w-10 h-10 rounded-full justify-center md:border-none md:w-auto md:h-auto md:rounded-none hover:bg-border_color">
+                <TfiWrite className="text-primary text-lg" />
+                <LabelText className="hidden md:block" children={"write"} />
+              </Flex>
+            </Link>
             <Flex className="gap-x-1 cursor-pointer border border-solid border-border_color w-10 h-10 rounded-full justify-center md:border-none md:w-auto md:h-auto md:rounded-none hover:bg-border_color">
               <IoMdNotificationsOutline className="text-primary text-2xl" />
             </Flex>
@@ -69,3 +70,4 @@ export default function Navbar({ bar }) {
     </nav>
   );
 }
+export default Navbar;

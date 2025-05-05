@@ -1,5 +1,4 @@
-
-const OTP= ({otp,handleChange,handleSubmit,isLoading,handleResendOTP,isResendDisabled,formatTime,timer,isError,headingText}) => {
+const OTP= ({otp,handleChange,handleSubmit,isLoading,handleResendOTP,isResendDisabled,formatTime,timer,isError,headingText,path}) => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -36,6 +35,7 @@ const OTP= ({otp,handleChange,handleSubmit,isLoading,handleResendOTP,isResendDis
                         </div>
                     </button>
                 </form>
+                {path !== "/auth/confirm-2fa" && (
                 <p className="text-gray-600 mt-6 text-center">
                     Didn&apos;t receive OTP?{" "}
                     <button
@@ -48,6 +48,7 @@ const OTP= ({otp,handleChange,handleSubmit,isLoading,handleResendOTP,isResendDis
                         Resend {isResendDisabled && `(${formatTime(timer)})`}
                     </button>
                 </p>
+                )}
                 {isError && <p className="text-red-500 mt-2">Failed to verify OTP</p>}
             </div>
         </div>
