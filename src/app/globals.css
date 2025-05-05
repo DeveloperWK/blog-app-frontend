@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@theme {
+    --color-bg: #0f0f0f; /* Background of your site */
+    --color-card_bg: #1e1e1e; /* Blog cards background */
+    --color-primary: #e0e0e0; /* Normal text */
+    --color-secondary: #aaaaaa; /* Muted small texts */
+    --color-primary_accent: #00ffff; /* Important highlights (links/buttons) */
+    --color-secondary_accent: #39ff14; /* Another highlight option */
+    --color-border_color: #333333; /* Soft borders between elements */
+    --color-quote_border: #00ffff; /* Border color for quotes */
+}
