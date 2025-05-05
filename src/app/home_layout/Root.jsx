@@ -4,7 +4,7 @@ import Navbar from "@/app/home_layout/Navbar";
 import useClick from "@/app/hooks/useClick";
 import LeftAside from "./LeftAside";
 
-export default function Root({ children }) {
+function Root({ children }) {
   const { bar, content } = useClick();
 
   return (
@@ -17,3 +17,4 @@ export default function Root({ children }) {
     </>
   );
 }
+export default Root;

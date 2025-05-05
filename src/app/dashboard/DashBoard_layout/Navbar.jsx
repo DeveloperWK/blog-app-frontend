@@ -5,7 +5,7 @@ import { TfiWrite } from 'react-icons/tfi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import LabelText from '@/app/components/LabelText';
 import Image from 'next/image';
-import user_logo from '../../../assets/user_logo.png';
+import user_logo from '../../../../public/images/user_logo.png';
 import { FaBarsProgress } from 'react-icons/fa6';
 
 export default function Navbar({ bar }) {

@@ -79,7 +79,7 @@ function RegisterForm() {
             if (!response.ok) {
                 throw new Error(result.message || 'Registration failed');
             }else {
-                router.push(`/auth/confirm-otp?email=${encodeURIComponent(data.email)}`);
+                router.push(`/auth/confirm-otp?email=${encodeURIComponent(data?.email)}`);
             }
             setPreview(null);
         } catch (err) {
