@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 import { FaBarsProgress } from "react-icons/fa6";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { TfiWrite } from "react-icons/tfi";
-import user_logo from "../../assets/user_logo.png";
+import user_logo from "../../../public/images/user_logo.png";
 import Flex from "../components/Flex";
 import SearchBox from "./SearchBox";
 
@@ -19,7 +19,7 @@ export default function Navbar({ bar }) {
             >
               CodeVerse — A Developer's Diary
             </h3>
-            <SearchBox className='hidden' />
+            <SearchBox className="hidden" />
           </Flex>
 
           <div ref={bar} className={"cursor-pointer md:hidden"}>

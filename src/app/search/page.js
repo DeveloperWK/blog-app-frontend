@@ -1,46 +1,45 @@
-import Image from 'next/image';
-import Root from '../home_layout/Root';
-import SearchBox from '../layout/SearchBox';
-import user_logo from '@/assets/user_logo.png';
-import LabelText from '../components/LabelText';
-import Flex from '../components/Flex';
-import { SiDatefns } from 'react-icons/si';
-import SmallText from '../components/SmallText';
-import Paragraph from '../components/Paragraph';
+import Image from "next/image";
+import { SiDatefns } from "react-icons/si";
+import user_logo from "../../../public/images/user_logo.png";
+import Flex from "../components/Flex";
+import Paragraph from "../components/Paragraph";
+import SmallText from "../components/SmallText";
+import Root from "../home_layout/Root";
+import SearchBox from "../layout/SearchBox";
 
 export default function Search() {
-    return (
-        <Root>
-            <div className="bg-bg w-[90%] mx-auto pt-10 pb-10 px-2 md:pt-16 h-screen">
-                <SearchBox className="w-full" />
-                <div className="mt-6">
-                    <div className="w-full rounded-2xl shadow-md p-4 flex items-center gap-x-4 border border-solid border-border_color">
-                        {/* <!-- Avatar --> */}
-                        <div>
-                            <Image
-                                src={user_logo}
-                                alt="Avatar"
-                                className="w-9 h-9 rounded-full object-cover"
-                            />
-                            {/* <!-- Online Status Dot --> */}
-                        </div>
-
-                        {/* <!-- Info --> */}
-                        <div className="flex-1 min-w-0">
-                            <div className="flex justify-between items-center">
-                                <SmallText>@henry</SmallText>
-                                <Flex className="gap-x-2">
-                                    <SiDatefns className="text-primary text-10" />
-                                    <SmallText>12 April 2013</SmallText>
-                                </Flex>
-                            </div>
-                            <Paragraph className="text-sm text-gray-600 dark:text-gray-300 truncate">
-                                 RAG in Action: Build your Own Local PDF Chatbot as a Beginner
-                            </Paragraph>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <Root>
+      <div className="bg-bg w-[90%] mx-auto pt-10 pb-10 px-2 md:pt-16 h-screen">
+        <SearchBox className="w-full" />
+        <div className="mt-6">
+          <div className="w-full rounded-2xl shadow-md p-4 flex items-center gap-x-4 border border-solid border-border_color">
+            {/* <!-- Avatar --> */}
+            <div>
+              <Image
+                src={user_logo}
+                alt="Avatar"
+                className="w-9 h-9 rounded-full object-cover"
+              />
+              {/* <!-- Online Status Dot --> */}
             </div>
-        </Root>
-    );
+
+            {/* <!-- Info --> */}
+            <div className="flex-1 min-w-0">
+              <div className="flex justify-between items-center">
+                <SmallText>@henry</SmallText>
+                <Flex className="gap-x-2">
+                  <SiDatefns className="text-primary text-10" />
+                  <SmallText>12 April 2013</SmallText>
+                </Flex>
+              </div>
+              <Paragraph className="text-sm text-gray-600 dark:text-gray-300 truncate">
+                RAG in Action: Build your Own Local PDF Chatbot as a Beginner
+              </Paragraph>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Root>
+  );
 }
