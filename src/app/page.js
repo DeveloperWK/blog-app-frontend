@@ -72,7 +72,7 @@ export default function Home() {
                 >
                   <Image src={user_logo} alt={"logo"} />
                 </div>
-                <LabelText>henry</LabelText>
+                <LabelText>@henry</LabelText>
               </Flex>
               <Paragraph className="mt-4">
                 RAG in Action: Build your Own Local PDF Chatbot as a Beginner
