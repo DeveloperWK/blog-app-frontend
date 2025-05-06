@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <DashBoardRoot>
       <main className="flex-1 px-6 space-y-6 py-20">
-        {/*  <!-- Stats --> */}
+        {/*  Stats  */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="border border-solid border-border_color py-4 px-6">
             <LabelText>Total Posts</LabelText>
@@ -27,11 +27,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <!-- Posts Table --> */}
+        {/* Posts Table */}
         <section className="glass p-6 rounded-xl shadow-xl">
           <HeadingH3>Posts</HeadingH3>
           <ul className="space-y-4 mt-4">
-            {/* <!-- Post Item --> */}
+            {/* Post Item  */}
             <li className="flex justify-between items-center p-4 bg-opacity-10 rounded-lg border border-solid border-border_color py-4 px-6">
               <div>
                 <QuoteText>Mastering Tailwind CSS</QuoteText>
