@@ -4,10 +4,12 @@ import { Suspense, useEffect } from "react";
 import { toast } from "react-toastify";
 import OTP from "@/app/components/OTP";
 import useOtpLogic from "@/app/hooks/useOtpLogic";
+import {useAuth} from "@/app/context/AuthContext/AuthProvider";
 const Confirm2fa = () => {
     const {otp,handleChange,isError,setIsError,isLoading,setIsLoading,setIsSuccess,isSuccess,email} = useOtpLogic()
     const router = useRouter();
     const path = usePathname()
+    const {signIn} = useAuth()
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,6 +42,11 @@ const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}auth/two-fact
                 setIsLoading(false);
                 return
             }
+            signIn({
+                token: result?.token,
+                role: result?.role,
+                userId: result?.userId,
+            });
             setIsLoading(false)
             setIsSuccess(true)
         } catch (error) {
