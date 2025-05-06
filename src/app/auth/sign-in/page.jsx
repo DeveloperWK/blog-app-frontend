@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {useRouter} from "next/navigation";
+import {useAuth} from "@/app/context/AuthContext/AuthProvider"
 function SignInPage() {
     const {
         register,
@@ -15,6 +16,8 @@ function SignInPage() {
     const [isError, setIsError] = useState(false);
     const [quote, setQuote] = useState(null);
     const router = useRouter();
+    const {signIn,user} = useAuth()
+    console.log("signInPage",user)
     console.log(quote)
     const onSubmit = async (data) => {
        try {
@@ -27,16 +30,22 @@ function SignInPage() {
                body: JSON.stringify(data),
            })
            const result = await response.json();
-           if(result.is2FAEnabled){
-               router.push(`/auth/confirm-2fa?email=${encodeURIComponent(data?.email)}`)
-               return
-           }
            if (!response.ok) {
               setIsError(true);
                setIsSuccess(false);
                setIsLoading(false);
                return
            }
+           if(result.is2FAEnabled){
+               router.push(`/auth/confirm-2fa?email=${encodeURIComponent(data?.email)}`)
+               return
+           }
+           signIn({
+               token: result?.token,
+               role: result?.role,
+               userId: result?.userId,
+           });
+           router.push('/');
            setIsSuccess(true);
            setIsError(false);
            setIsLoading(false);
