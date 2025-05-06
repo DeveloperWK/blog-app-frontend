@@ -1,9 +1,9 @@
 "use client";
 import useClick from "@/app/hooks/useClick";
-import Navbar from "@/app/mobile-search-layout/Navbar";
+import Navbar from "@/app/layout/Navbar";
 import LeftAside from "./LeftAside";
 
-export default function Root({ children }) {
+ function Root({ children }) {
   const { bar, content } = useClick();
 
   return (
@@ -16,3 +16,4 @@ export default function Root({ children }) {
     </>
   );
 }
+export default Root;

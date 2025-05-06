@@ -3,6 +3,7 @@
 import {useEffect, useRef, useState} from 'react';
 import { useForm } from 'react-hook-form';
 import {toast} from "react-toastify";
+import {useAuth} from "@/app/context/AuthContext/AuthProvider";
 
  function BlogPostForm() {
     const {
@@ -29,6 +30,7 @@ import {toast} from "react-toastify";
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
      const fileInputRef = useRef(null);
+     const {user} = useAuth()
     useEffect(() => {
         const fetchSubcategories = async () => {
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}categories`);
@@ -48,13 +50,12 @@ import {toast} from "react-toastify";
     const onSubmit = async (data) => {
 
 try {
-            setIsLoading(true);
+ setIsLoading(true);
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('body', data.body);
     formData.append('category', selectedCategory);
-    //todo useAuth Hook Have to implement here
-    formData.append('author', );
+    formData.append('author',user.userId);
     if (data.image instanceof File) {
         formData.append('image', data.image);
     }

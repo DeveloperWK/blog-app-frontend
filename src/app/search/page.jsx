@@ -1,3 +1,4 @@
+import SearchBox from "@/app/layout/SearchBox";
 import Image from "next/image";
 import { SiDatefns } from "react-icons/si";
 import user_logo from "../../../public/images/user_logo.png";
@@ -5,13 +6,12 @@ import Flex from "../components/Flex";
 import Paragraph from "../components/Paragraph";
 import SmallText from "../components/SmallText";
 import Root from "../home_layout/Root";
-import SearchBox from "@/app/mobile-search-layout/SearchBox";
 
-export default function Search() {
+function Search() {
   return (
     <Root>
       <div className="bg-bg w-[90%] mx-auto pt-10 pb-10 px-2 md:pt-16 h-screen">
-        <SearchBox className="w-full" />
+        <SearchBox className="w-full mt-5" />
         <div className="mt-6">
           <div className="w-full rounded-2xl shadow-md p-4 flex items-center gap-x-4 border border-solid border-border_color">
             {/* <!-- Avatar --> */}
@@ -43,3 +43,4 @@ export default function Search() {
     </Root>
   );
 }
+export default Search

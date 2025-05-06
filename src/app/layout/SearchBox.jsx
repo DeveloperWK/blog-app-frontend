@@ -1,7 +1,7 @@
 import { CiSearch } from "react-icons/ci";
 import Flex from "../components/Flex";
 
-export default function SearchBox({className}) {
+function SearchBox({className}) {
     return (
         <Flex
             className={
@@ -17,3 +17,4 @@ export default function SearchBox({className}) {
         </Flex>
     );
 }
+export default  SearchBox;

@@ -10,7 +10,7 @@ function LeftAside({ ...rest }) {
     <div className="md:w-[40%] md:h-screen bg-bg">
       <div
         {...rest}
-        className="w-[200px] h-[calc(100vh-145px)] bg-bg border border-solid border-border_color fixed top-16 -left-56 py-5 px-4 md:block md:h-screen md:fixed md:top- md:left-0 md:pt-10 lg:w-[300px] xl:w-[400px] duration-200 transition-all"
+        className="pt-10 w-[200px] h-[calc(100vh-145px)] bg-bg border border-solid border-border_color fixed top-16 -left-56 py-5 px-4 md:block md:h-screen md:fixed md:top- md:left-0 md:pt-10 lg:w-[300px] xl:w-[400px] duration-200 transition-all"
       >
         <ul>
           <Link href={"/"}>

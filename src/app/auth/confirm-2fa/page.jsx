@@ -51,6 +51,8 @@ const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}auth/two-fact
             setIsSuccess(true)
         } catch (error) {
             setIsError(true)
+            setIsLoading(false)
+            setIsSuccess(false)
           console.error("Error verifying OTP:", error);
           toast.error("Failed to verify OTP");
         }

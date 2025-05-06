@@ -51,6 +51,8 @@ function SignInPage() {
            setIsLoading(false);
        }catch (err){
            setIsError(true)
+           setIsLoading(false)
+           setIsSuccess(false)
            console.error("Sign-in Error :", err);
            toast.error("Failed to Sign-in. Please try again later.");
        }
