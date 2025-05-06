@@ -1,6 +1,6 @@
 'use client';
 
-import Navbar from '@/app/layout/Navbar';
+import Navbar from '@/app/mobile-search-layout/Navbar';
 import useClick from '@/app/hooks/useClick';
 import LeftAside from './LeftAside';
 

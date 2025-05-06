@@ -5,7 +5,7 @@ import Flex from "../components/Flex";
 import Paragraph from "../components/Paragraph";
 import SmallText from "../components/SmallText";
 import Root from "../home_layout/Root";
-import SearchBox from "../layout/SearchBox";
+import SearchBox from "@/app/mobile-search-layout/SearchBox";
 
 export default function Search() {
   return (
