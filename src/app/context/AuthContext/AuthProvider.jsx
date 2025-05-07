@@ -9,7 +9,6 @@ token: "",
     userId: "",
     isAuthenticated: false,
 });
-    // Initialize user state from localStorage when component mounts
     useEffect(() => {
         // Only run on client side
         if (typeof window !== "undefined") {
@@ -27,7 +26,6 @@ token: "",
             }
         }
     }, []);
-
     useEffect(() => {
         if (typeof window !== "undefined") {
             if (user.isAuthenticated && user.token) {

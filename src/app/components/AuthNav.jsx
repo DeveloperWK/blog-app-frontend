@@ -14,7 +14,7 @@ const AuthNav = () => {
       {isAuthenticated ? (
         <>
           {" "}
-          <Link href={"/user/post/write-post"}>
+          <Link href={"/users/post/write-post"}>
             <Flex className="gap-x-1 cursor-pointer border border-solid border-border_color w-10 h-10 rounded-full justify-center md:border-none md:w-auto md:h-auto md:rounded-none hover:bg-border_color">
               <TfiWrite className="text-primary text-lg" />
               <LabelText className="hidden md:block" children={"write"} />

@@ -4,6 +4,9 @@ const nextConfig = {
         serverActions:{
             bodySizeLimit:"5mb"
         }
+    },
+    images:{
+        remotePatterns:[new URL("https://ik.imagekit.io/**")]
     }
 };
 
