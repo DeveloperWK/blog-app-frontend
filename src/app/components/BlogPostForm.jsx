@@ -4,6 +4,7 @@ import {useEffect, useRef, useState} from 'react';
 import { useForm } from 'react-hook-form';
 import {toast} from "react-toastify";
 import {useAuth} from "@/app/context/AuthContext/AuthProvider";
+import useCategoriesLogic from "@/app/hooks/useCategoriesLogic";
 
  function BlogPostForm() {
     const {
@@ -25,23 +26,12 @@ import {useAuth} from "@/app/context/AuthContext/AuthProvider";
 
     const [preview, setPreview] = useState(null);
     const [subcategories, setSubcategories] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
      const fileInputRef = useRef(null);
+     const {categories} = useCategoriesLogic()
      const {user} = useAuth()
-    useEffect(() => {
-        const fetchSubcategories = async () => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}categories`);
-            const data = await res.json();
-            if (res.ok) {
-                setCategories(data?.categories)
-            }
-        }
-        fetchSubcategories();
-    }, []);
-
     const handleCategoryChange = (e) => {
         const category = e.target.value;
         setSelectedCategory(category);
@@ -59,12 +49,13 @@ try {
     if (data.image instanceof File) {
         formData.append('image', data.image);
     }
-    console.dir(data);
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post`, {
         method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${user?.token}`
+        },
         body:formData
     });
-    const result = await res.json();
     if (!res.ok) {
        setIsError(true);
        setIsLoading(false);

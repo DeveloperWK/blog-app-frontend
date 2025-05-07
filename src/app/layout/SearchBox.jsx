@@ -10,7 +10,7 @@ function SearchBox({className}) {
         >
             <CiSearch className="text-primary text-lg mr-3" />
             <input
-                type="text"
+                type="search"
                 className="w-full text-md text-secondary focus:border-none outline-none"
                 placeholder="Search here >>>>>"
             />
