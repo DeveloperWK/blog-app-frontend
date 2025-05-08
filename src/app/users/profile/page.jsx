@@ -22,7 +22,7 @@ function ProfilePage() {
     const [isError, setIsError] = useState(false);
     const {deletePost,writerPosts} = usePostLogic()
     const router = useRouter()
-    const {signOut,setRefresh} = useAuth()
+    const {signOut} = useAuth()
     const [tempProfile, setTempProfile] = useState({
         firstName:"",
         lastName:"",

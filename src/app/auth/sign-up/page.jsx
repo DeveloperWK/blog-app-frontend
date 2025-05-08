@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { techOccupations } from "@/app/data/occupations";
 import {useRouter} from "next/navigation";
+import LivePasswordRuleFeedback from "@/app/components/LivePasswordRuleFeedback";
 
 function RegisterForm() {
     const {
@@ -33,14 +34,6 @@ function RegisterForm() {
     const fileInputRef = useRef(null);
     const router = useRouter();
     const password = watch('password');
-    const passwordRules = {
-        length: password?.length >= 8,
-        upper: /[A-Z]/.test(password || ''),
-        lower: /[a-z]/.test(password || ''),
-        digit: /\d/.test(password || ''),
-        symbol: /[^A-Za-z0-9]/.test(password || ''),
-    };
-
     const handleFileChange = (e) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -182,22 +175,7 @@ function RegisterForm() {
                             {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>}
                         </div>
                     </div>
-
-                    {/* Live password rule feedback */}
-                    <div className="text-sm text-gray-400 space-y-1">
-                        <p>Password must contain:</p>
-                        <ul className="ml-4 list-disc">
-                            {Object.entries(passwordRules).map(([key, valid]) => (
-                                <li key={key} className={valid ? 'text-green-400' : 'text-red-400'}>
-                                    {key === 'length' && 'At least 8 characters'}
-                                    {key === 'upper' && 'An uppercase letter'}
-                                    {key === 'lower' && 'A lowercase letter'}
-                                    {key === 'digit' && 'A number'}
-                                    {key === 'symbol' && 'A special character'}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <LivePasswordRuleFeedback password={password}/>
 
                     {/* Country & Role */}
                     <div className="grid md:grid-cols-2 gap-4">

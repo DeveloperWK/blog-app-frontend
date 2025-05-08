@@ -3,6 +3,7 @@
 import { useForm } from 'react-hook-form';
 import {Eye, EyeOff} from "lucide-react";
 import {useState} from "react";
+import LivePasswordRuleFeedback from "@/app/components/LivePasswordRuleFeedback";
 
 const ChangePassword = () => {
     const {
@@ -12,15 +13,7 @@ const ChangePassword = () => {
         formState: { errors },
     } = useForm();
     const [showPassword, setShowPassword] = useState(false);
-    const password = watch('password');
-    const passwordRules = {
-        length: password?.length >= 8,
-        upper: /[A-Z]/.test(password || ''),
-        lower: /[a-z]/.test(password || ''),
-        digit: /\d/.test(password || ''),
-        symbol: /[^A-Za-z0-9]/.test(password || ''),
-    };
-
+    const password = watch('password')
     const onSubmit = (data) => {
         console.log('Change password with:', data);
         // Add your password change logic here
@@ -93,20 +86,7 @@ const ChangePassword = () => {
                 </div>
 
                 {/* Live password rule feedback */}
-                <div className="text-sm text-gray-400 space-y-1">
-                    <p>Password must contain:</p>
-                    <ul className="ml-4 list-disc">
-                        {Object.entries(passwordRules).map(([key, valid]) => (
-                            <li key={key} className={valid ? 'text-green-400' : 'text-red-400'}>
-                                {key === 'length' && 'At least 8 characters'}
-                                {key === 'upper' && 'An uppercase letter'}
-                                {key === 'lower' && 'A lowercase letter'}
-                                {key === 'digit' && 'A number'}
-                                {key === 'symbol' && 'A special character'}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <LivePasswordRuleFeedback password={password}/>
                 <button
                     type="submit"
                     className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
