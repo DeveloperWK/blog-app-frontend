@@ -74,8 +74,6 @@ token: "",
             userId: "",
             isAuthenticated: false,
         });
-
-        console.log("User signed out");
     };
     const hasRole = (requiredRole) => {
 return user.role === requiredRole;

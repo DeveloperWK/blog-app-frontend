@@ -10,7 +10,7 @@ const usePostLogic = () => {
         try {
             setIsLoading(true);
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post`,{
-               cache: 'no-cache',
+                cache: 'no-cache',
             })
             const result = await response.json();
             if(!response.ok){
@@ -72,10 +72,10 @@ const usePostLogic = () => {
         }
     }
     const postsCount = posts?.posts?.length
-useEffect(() => {
-    fetchPosts().then()
-    fetchPostsByWriter().then()
-},[])
+    useEffect(() => {
+        fetchPosts().then()
+        fetchPostsByWriter().then()
+    },[])
     return {
         posts,
         loading: isLoading,

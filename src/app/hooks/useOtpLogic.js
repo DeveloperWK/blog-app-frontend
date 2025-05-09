@@ -16,7 +16,6 @@ const useOtpLogic = ()=> {
     useEffect(() => {
         if (!emailRef.current) {
             const emailParam = searchParams.get("email");
-            console.log(emailParam);
             if (emailParam) {
                 setEmail(emailParam);
                 emailRef.current = true;

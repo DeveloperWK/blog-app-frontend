@@ -25,7 +25,6 @@ const SendResetPasswordLink = ()=>{
             setIsLoading(false);
             throw err;
         }
-        console.log("send reset password",data)
     }
     return(
         <main className="min-h-screen bg-gray-950 flex items-center justify-center px-4 py-12">

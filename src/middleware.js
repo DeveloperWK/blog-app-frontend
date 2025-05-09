@@ -9,7 +9,7 @@ if(url.startsWith('/dashboard') && role !== 'admin') return NextResponse.redirec
 if(url.startsWith('/users/post') && role !== 'writer') return NextResponse.redirect(new URL('/auth/sign-in', req.nextUrl))
 
 */
-if(url.startsWith('/auth') && token )return NextResponse.redirect(new URL('/',req.nextUrl));
+// if(url.startsWith('/auth') && token )return NextResponse.redirect(new URL('/',req.nextUrl));
 
 }
 export const config = {

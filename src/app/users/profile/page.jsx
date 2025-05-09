@@ -72,12 +72,10 @@ function ProfilePage() {
                 setIsLoading(false);
                 return;
             }
-            const updatedUser = await fetchUser()
-            setUser(updatedUser)
-            document.cookie = `role=${updatedUser?.role}; path=/; `;
-            localStorage.setItem('role',updatedUser?.role)
-            window.location.reload()
             setIsLoading(false);
+            toast.success("Profile updated successfully.")
+            signOut()
+            router.push("/auth/sign-in")
         }catch (err){
             console.error("Error :", err);
             setIsError(true)

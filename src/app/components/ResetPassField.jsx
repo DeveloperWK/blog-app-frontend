@@ -13,7 +13,6 @@ const ResetPassField = ({token}) => {
     const router = useRouter();
     const password = watch('password');
     const onSubmit = async (data) => {
-        console.log(data)
         try {
             setIsSubmitting(true);
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}auth/forgot-password?token=${token}`, {

@@ -58,7 +58,7 @@ const BasicInfoSection = ({ profile, tempProfile, isEditing, onInputChange }) =>
                     value={profile?.password}
                     isEditing={isEditing}
                 >
-                    <Link href="/auth/change-password" className="text-blue-600 hover:underline">Change Password</Link>
+                    <Link href={`/auth/change-password?email=${encodeURIComponent(profile?.email)}`} className="text-blue-600 hover:underline">Change Password</Link>
                 </ProfileField>
 
                 {/* 2FA */}

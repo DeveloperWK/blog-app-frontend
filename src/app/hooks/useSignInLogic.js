@@ -57,7 +57,6 @@ const useSignInLogic = () => {
         }
     };
 
-console.log(loginAttempts)
 
     return {
         onSubmit,

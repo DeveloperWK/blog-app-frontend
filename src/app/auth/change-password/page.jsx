@@ -1,26 +1,53 @@
 'use client';
-
 import { useForm } from 'react-hook-form';
 import {Eye, EyeOff} from "lucide-react";
-import {useState} from "react";
+import {Suspense, useState} from "react";
 import LivePasswordRuleFeedback from "@/app/components/LivePasswordRuleFeedback";
+import {useRouter, useSearchParams} from "next/navigation";
 
 const ChangePassword = () => {
     const {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors },
     } = useForm();
     const [showPassword, setShowPassword] = useState(false);
-    const password = watch('password')
-    const onSubmit = (data) => {
-        console.log('Change password with:', data);
-        // Add your password change logic here
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const newPassword= watch('newPassword');
+    const params = useSearchParams()
+    const email = params.get('email')
+    const router = useRouter();
+    const onSubmit = async (data) => {
+        try {
+            setIsLoading(true);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}auth/change-password`, {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                   ...data,
+                    email: email
+                })
+            })
+            if (!res.ok) {
+                setIsError(true);
+                setIsLoading(false);
+                reset()
+                return;
+            }
+            setIsLoading(false);
+router.push('/');
+        }catch (err){
+            setIsError(true);
+            reset()
+            setIsLoading(false);
+            throw err;
+        }
     };
-
-    const newPassword = watch('newPassword');
-
     return (
         <section className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
         <div className="max-w-md mx-auto  bg-bg rounded-lg shadow-md p-10">
@@ -42,13 +69,14 @@ const ChangePassword = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                        <label className="block mb-1" htmlFor='password'>Password</label>
+                        <label className="block mb-1" htmlFor='newPassword'>
+                           New Password</label>
                         <div className="relative">
                             <input
                                 type={showPassword ? 'text' : 'password'}
-                                id="password"
-                                {...register('password', {
-                                    required: 'Password is required',
+                                id="newPassword"
+                                {...register('newPassword', {
+                                    required: 'New Password is required',
                                     validate: {
                                         length: (v) => v.length >= 8 || 'Minimum 8 characters',
                                         upper: (v) => /[A-Z]/.test(v) || 'One uppercase required',
@@ -77,7 +105,7 @@ const ChangePassword = () => {
                             id="confirmPassword"
                             {...register('confirmPassword', {
                                 required: 'Confirm your password',
-                                validate: (value) => value === password || 'Passwords do not match',
+                                validate: (value) => value === newPassword || 'Passwords do not match',
                             })}
                             className="w-full bg-gray-700 p-2 rounded"
                         />
@@ -86,17 +114,31 @@ const ChangePassword = () => {
                 </div>
 
                 {/* Live password rule feedback */}
-                <LivePasswordRuleFeedback password={password}/>
+                <LivePasswordRuleFeedback password={newPassword} />
                 <button
                     type="submit"
+                    disabled={isLoading}
                     className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
                 >
-                    Change Password
+                    {isLoading ? 'Loading...' : 'Change Password'}
                 </button>
             </form>
+            {isError && (
+                <p className="mt-5 text-sm text-red-400"> Failed to change password,Try again later</p>
+            )}
         </div>
         </section>
     );
 };
 
-export default ChangePassword;
+
+const ChangePasswordWithSuspense = () => {
+    return (
+        <Suspense fallback={ <div className="fixed inset-0 bg-black text-white flex justify-center items-center z-50">
+            Loading...
+        </div>}>
+            <ChangePassword />
+            </Suspense>
+    )
+}
+export default ChangePasswordWithSuspense;
