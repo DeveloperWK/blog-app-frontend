@@ -53,12 +53,15 @@ import useUsersLogic from "@/app/hooks/useUsersLogic";
                           <SmallText>@{user?.firstName}</SmallText>
                         </div>
                         <Paragraph className="text-sm text-gray-600 dark:text-gray-300 truncate">
-                            {user?.email}
+                            {user?.role.charAt(0).toUpperCase() + user?.role.slice(1)}
                         </Paragraph>
+                          <Paragraph className="text-sm text-gray-600 dark:text-gray-300 truncate">
+                              {user?.email}
+                          </Paragraph>
                       </div>
                     </div>
                     <button className="text-red-500 hover:text-red-700 hover:scale-105 transition" disabled={loading}
-                            onClick={()=>deleteUser(user._id)}
+                            onClick={()=>user?.role === "admin" ? alert('You will not be able to delete the admin. ') : confirm('Do you want to delete this user ?') && deleteUser(user._id)}
                         >
                       <Flex className="gap-x-1 cursor-pointer">
                         <MdDelete/> <span>Delete</span>

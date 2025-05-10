@@ -33,17 +33,6 @@ function SignInPage() {
      fetchQuote()
 },[])
     return (
-        // <main className="min-h-screen flex dark bg-gray-900 text-white">
-        //     <SignInForm errors={errors} isError={isError} isSuccess={isSuccess} isLoading={isLoading} onSubmit={onSubmit} register={register} handleSubmit={handleSubmit} text="Sign in to your Blog dashboard" />
-        //     <section className="hidden md:flex w-1/2 items-center justify-center bg-gray-800 p-12">
-        //         <blockquote className="text-xl italic font-light text-gray-300 max-w-md">
-        //             {quote ?
-        //                 quote?.quote :  `“Writing is the painting of the voice.”`
-        //             }<br />
-        //             <span className="block mt-4 text-sm font-semibold text-gray-400">– {quote ? quote?.author : "Voltaire"}</span>
-        //         </blockquote>
-        //     </section>
-        // </main>
         <main className="min-h-screen flex dark bg-gray-900 text-white">
             <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-8">
                 <SignInForm
@@ -56,6 +45,9 @@ function SignInPage() {
                     handleSubmit={handleSubmit}
                     text="Sign in to your Blog dashboard"
                 />
+                <span className="text-sm text-gray-400">
+                    Have an account? <Link href="/auth/sign-up"><span className='hover:underline text-blue-600 '>Sign up</span></Link>
+                </span>
                 {loginAttempts >= 3 && (
                     <div className=" text-sm text-red-400">
                         <p>Are you forgot your password?</p>

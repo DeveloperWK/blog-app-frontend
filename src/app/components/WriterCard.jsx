@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-function WriterCard({ firstName,lastName, role, bio, avatarUrl }) {
+function WriterCard({ firstName,lastName, role, bio, avatar }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -15,7 +15,7 @@ function WriterCard({ firstName,lastName, role, bio, avatarUrl }) {
             <div className="p-4 flex items-center space-x-4">
                 <img
                     className="h-14 w-14 rounded-full object-cover ring-2 ring-indigo-500"
-                    src={avatarUrl}
+                    src={avatar}
                     alt={`${name}'s avatar`}
                 />
                 <div>

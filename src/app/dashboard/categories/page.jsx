@@ -3,13 +3,22 @@
 import Link from 'next/link';
 import useCategoriesLogic from "@/app/hooks/useCategoriesLogic";
 import DashBoardRoot from "@/app/dashboard/DashBoard_layout/DashBoardRoot";
+import {FolderPlus} from "lucide-react";
  function CategoryListPage() {
 const {categories} = useCategoriesLogic()
     return (
         <DashBoardRoot>
         <div className="min-h-screen bg-bg text-white p-6">
             <div className="max-w-6xl mx-auto">
-                <h1 className="text-3xl font-bold mb-6 mt-10 md:mt-0">Categories</h1>
+                <section className='flex justify-between items-center  gap-y-4 flex-row'>
+                    <h1 className="text-3xl font-bold mb-6 mt-10 md:mt-0">Categories</h1>
+                    <Link href="/dashboard/categories/create-category">
+                        <button className='bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm transition flex items-center gap-x-2' >
+                            <FolderPlus className="h-4 w-4 mr-2 " />
+                            Create Category
+                        </button>
+                    </Link>
+                </section>
 
                 {/* Responsive Table/List */}
                 <div className="overflow-x-auto">
@@ -36,13 +45,13 @@ const {categories} = useCategoriesLogic()
                                 <td className="md:p-4 p-2 block md:table-cell text-right md:text-right">
                                     <div className="flex justify-end gap-2">
                                         <Link
-                                            href={`/categories/edit/${category.id}`}
+                                            href={`/categories/edit/${category._id}`}
                                             className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm transition"
                                         >
                                             Edit
                                         </Link>
                                         <button
-                                            onClick={() => alert(`Delete category ${category.id}`)}
+                                            onClick={() => alert(`Delete category ${category?._id}`)}
                                             className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm transition"
                                         >
                                             Delete
