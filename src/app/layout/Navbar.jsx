@@ -1,15 +1,15 @@
 import Flex from "@/app/components/Flex";
 import LabelText from "@/app/components/LabelText";
+import { useAuth } from "@/app/context/AuthContext/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
 import { CiSearch } from "react-icons/ci";
-import { FaBarsProgress } from "react-icons/fa6";
-import { TfiWrite } from "react-icons/tfi";
 import { FaUserGraduate } from "react-icons/fa";
+import { FaBarsProgress } from "react-icons/fa6";
+import { FiLogIn, FiLogOut } from "react-icons/fi";
+import { TfiWrite } from "react-icons/tfi";
 import user_logo from "../../../public/images/user_logo.png";
 import SearchBox from "./SearchBox";
-import { FiLogIn, FiLogOut } from "react-icons/fi";
-import { useAuth } from "@/app/context/AuthContext/AuthProvider";
 
 function Navbar({ bar }) {
   const { isAuthenticated, signOut, hasRole } = useAuth();

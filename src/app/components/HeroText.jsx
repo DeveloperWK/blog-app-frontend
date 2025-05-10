@@ -1,5 +1,3 @@
-// 	Big landing text
-
 export default function HeroText({ className, children }) {
     return (
         <h1

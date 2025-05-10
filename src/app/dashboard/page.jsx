@@ -1,4 +1,7 @@
-"use client"
+"use client";
+import useCategoriesLogic from "@/app/hooks/useCategoriesLogic";
+import usePostLogic from "@/app/hooks/usePostLogic";
+import useUsersLogic from "@/app/hooks/useUsersLogic";
 import { MdDelete } from "react-icons/md";
 import Flex from "../components/Flex";
 import HeadingH2 from "../components/HeadingH2";
@@ -7,14 +10,11 @@ import LabelText from "../components/LabelText";
 import Paragraph from "../components/Paragraph";
 import QuoteText from "../components/QuoteText";
 import DashBoardRoot from "./DashBoard_layout/DashBoardRoot";
-import usePostLogic from "@/app/hooks/usePostLogic";
-import useCategoriesLogic from "@/app/hooks/useCategoriesLogic";
-import useUsersLogic from "@/app/hooks/useUsersLogic";
 
 function DashBoardPage() {
-  const {error,loading,posts,deletePost,postsCount} = usePostLogic()
-  const {categoriesCount} = useCategoriesLogic()
-const {usersCount}=useUsersLogic()
+  const { error, loading, posts, deletePost, postsCount } = usePostLogic();
+  const { categoriesCount } = useCategoriesLogic();
+  const { usersCount } = useUsersLogic();
 
   return (
     <DashBoardRoot>
@@ -41,24 +41,32 @@ const {usersCount}=useUsersLogic()
           <ul className="space-y-4 mt-4">
             {/* Post Item  */}
             {loading && <Paragraph>Loading...</Paragraph>}
-            {!loading && postsCount === 0 && <Paragraph>No posts found</Paragraph>}
-            {!loading && posts?.posts?.map((post) => (
-                <li className="flex justify-between items-center p-4 bg-opacity-10 rounded-lg border border-solid border-border_color py-4 px-6" key={post._id}>
+            {!loading && postsCount === 0 && (
+              <Paragraph>No posts found</Paragraph>
+            )}
+            {!loading &&
+              posts?.posts?.map((post) => (
+                <li
+                  className="flex justify-between items-center p-4 bg-opacity-10 rounded-lg border border-solid border-border_color py-4 px-6"
+                  key={post._id}
+                >
                   <div>
                     <QuoteText>{post?.title}</QuoteText>
                     <Paragraph className="mt-2">
                       Published on {post?.updatedAt?.slice(0, 10)}
                     </Paragraph>
                   </div>
-                  <button className="text-red-500 hover:text-red-700 hover:scale-105 transition" disabled={loading}
-                  onClick={()=>deletePost(post._id)}
+                  <button
+                    className="text-red-500 hover:text-red-700 hover:scale-105 transition"
+                    disabled={loading}
+                    onClick={() => deletePost(post._id)}
                   >
                     <Flex className="gap-x-1 cursor-pointer">
                       <MdDelete /> <span>Delete</span>
                     </Flex>
                   </button>
                 </li>
-            ))}
+              ))}
           </ul>
         </section>
         {error && <Paragraph className="text-red-500">{error}</Paragraph>}
@@ -66,4 +74,4 @@ const {usersCount}=useUsersLogic()
     </DashBoardRoot>
   );
 }
-export default DashBoardPage
+export default DashBoardPage;
