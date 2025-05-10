@@ -125,7 +125,6 @@ const usePostLogic = () => {
         }
     }
     const updatePostImage = async (id, data) => {
-        console.log(Object.fromEntries(data.entries()),)
         try {
             setIsLoading(true);
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post/update-image/${id}`,{

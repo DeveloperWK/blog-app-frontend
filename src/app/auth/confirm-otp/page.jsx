@@ -62,7 +62,7 @@ const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}auth/verify`,
 
 const OtpPageWithSuspense = () => {
   return (
-      <Suspense fallback={ <div className="fixed inset-0 bg-black text-white flex justify-center items-center z-50">
+      <Suspense fallback={ <div className="fixed min-h-full inset-0 bg-black text-white flex justify-center items-center z-50">
           Loading...
       </div>}>
         <OTPPage/>
