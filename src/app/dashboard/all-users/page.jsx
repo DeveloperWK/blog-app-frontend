@@ -8,7 +8,7 @@ import SmallText from "@/app/components/SmallText";
 import useUsersLogic from "@/app/hooks/useUsersLogic";
 import Image from "next/image";
 import { MdDelete } from "react-icons/md";
-import user_logo from "../../../../public/images/user_logo.png";
+import userLogo from "../../../../public/images/programmer.png";
 import DashBoardRoot from "../DashBoard_layout/DashBoardRoot";
 
 function AllUsers() {
@@ -44,7 +44,7 @@ function AllUsers() {
                     {/* <!-- Avatar --> */}
                     <div>
                       <Image
-                        src={user.avatar ? user.avatar : user_logo}
+                        src={user.avatar ? user.avatar : userLogo}
                         alt="Avatar"
                         width={36}
                         height={36}

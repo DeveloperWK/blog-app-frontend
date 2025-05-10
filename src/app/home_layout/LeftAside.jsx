@@ -1,8 +1,7 @@
 import CategoryFilter from "@/app/components/CategoryFilter";
 import Image from "next/image";
 import Link from "next/link";
-import { FaBookBookmark } from "react-icons/fa6";
-import user_logo from "../../../public/images/user_logo.png";
+import userLogo from "../../../public/images/programmer.png";
 import Flex from "../components/Flex";
 import LabelText from "../components/LabelText";
 function LeftAside({ ...rest }) {
@@ -21,18 +20,23 @@ function LeftAside({ ...rest }) {
                     "w-[20px] h-[20px] rounded-full overflow-hidden border border-solid border-border_color cursor-pointer mr-3"
                   }
                 >
-                  <Image src={user_logo} alt={"logo"} />
+                  <Image src={userLogo} alt={"logo"} />
                 </div>
                 <LabelText children="My feed" />
               </Flex>
             </li>
           </Link>
+          {/*
+              <Link href={'/users/post/book-mark'}>
           <li className="cursor-pointer hover:bg-border_color px-3 py-2 rounded-md">
             <Flex className="gap-x-1">
               <FaBookBookmark className="text-xl text-primary mr-3" />
               <LabelText children="Bookmarks" />
             </Flex>
           </li>
+            </Link >
+
+          */}
         </ul>
         <hr className="my-5 text-border_color" />
         <CategoryFilter />

@@ -22,6 +22,9 @@ const useCategoriesLogic = () => {
   const createNewCategory = async (data) => {
     try {
       setIsLoading(true);
+      if (data?.parent === "") {
+        data.parent = null;
+      }
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URI}categories`,
         {
@@ -30,7 +33,11 @@ const useCategoriesLogic = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user?.token}`,
           },
-          body: JSON.stringify(data),
+
+          body: JSON.stringify({
+            name: data?.name,
+            parent: data?.parent,
+          }),
         }
       );
       if (!res.ok) {
@@ -45,6 +52,33 @@ const useCategoriesLogic = () => {
       setIsLoading(false);
       console.error("Error :", err);
       toast.error("Failed to create new category. Please try again later.");
+    }
+  };
+  const deleteCategory = async (id) => {
+    try {
+      setIsLoading(true);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}categories/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      if (!res.ok) {
+        setIsError(true);
+        setIsLoading(false);
+        return;
+      }
+      fetchCategories().then();
+      setIsLoading(false);
+      toast.success("Category deleted successfully.");
+    } catch (err) {
+      setIsError(true);
+      setIsLoading(false);
+      console.error("Error :", err);
     }
   };
   useEffect(() => {
@@ -70,6 +104,7 @@ const useCategoriesLogic = () => {
     isError,
     createNewCategory,
     isSuccess,
+    deleteCategory,
   };
 };
 export default useCategoriesLogic;

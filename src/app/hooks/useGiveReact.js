@@ -53,7 +53,6 @@ const useGiveReact = () => {
           }),
         }
       );
-      const result = await res.json();
       if (!res.ok) {
         setIsReacted(false);
         setIsError(true);
@@ -74,9 +73,9 @@ const useGiveReact = () => {
     }
   };
   useEffect(() => {
-      reactPost().then();
-      
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    reactPost().then();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedReaction]);
   useEffect(() => {
     if (userReactions) {

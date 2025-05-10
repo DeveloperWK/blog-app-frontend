@@ -8,9 +8,8 @@ import { FaUserGraduate } from "react-icons/fa";
 import { FaBarsProgress } from "react-icons/fa6";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 import { TfiWrite } from "react-icons/tfi";
-import user_logo from "../../../public/images/user_logo.png";
+import userLogo from "../../../public/images/programmer.png";
 import SearchBox from "./SearchBox";
-
 function Navbar({ bar }) {
   const { isAuthenticated, signOut, hasRole } = useAuth();
 
@@ -75,7 +74,7 @@ function Navbar({ bar }) {
                 <Link href="/users/profile" className="md:order-4">
                   <div className="w-10 h-10 rounded-full overflow-hidden border border-solid border-border_color hover:border-primary transition-colors duration-200 flex items-center justify-center md:w-8 md:h-8">
                     <Image
-                      src={user_logo}
+                      src={userLogo}
                       alt="User profile"
                       width={32}
                       height={32}

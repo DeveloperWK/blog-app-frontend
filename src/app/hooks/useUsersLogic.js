@@ -45,6 +45,7 @@ const useUsersLogic = () => {
         setLoading(false);
         return;
       }
+      setLoading(false);
       return result?.user;
     } catch (err) {
       setError(true);

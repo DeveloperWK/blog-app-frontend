@@ -5,7 +5,7 @@ import useCategoriesLogic from "@/app/hooks/useCategoriesLogic";
 import { FolderPlus } from "lucide-react";
 import Link from "next/link";
 function CategoryListPage() {
-  const { categories } = useCategoriesLogic();
+  const { categories, deleteCategory } = useCategoriesLogic();
   return (
     <DashBoardRoot>
       <div className="min-h-screen bg-bg text-white p-6">
@@ -46,16 +46,8 @@ function CategoryListPage() {
                     </td>
                     <td className="md:p-4 p-2 block md:table-cell text-right md:text-right">
                       <div className="flex justify-end gap-2">
-                        <Link
-                          href={`/categories/edit/${category._id}`}
-                          className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm transition"
-                        >
-                          Edit
-                        </Link>
                         <button
-                          onClick={() =>
-                            alert(`Delete category ${category?._id}`)
-                          }
+                          onClick={() => deleteCategory(category._id)}
                           className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm transition"
                         >
                           Delete

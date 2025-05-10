@@ -107,7 +107,6 @@ const useComments = () => {
   return {
     comments,
     newComment,
-    userName,
     isLoading,
     error,
     handleEdit,

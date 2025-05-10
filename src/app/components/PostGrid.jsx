@@ -95,10 +95,10 @@ const PostGrid = () => {
                   {reactionTypes.map((type) => {
                     const isDisabled = !isAuthenticated || isReacted;
                     return (
-                      <div
+                      <button
                         key={type}
                         title={!isAuthenticated ? "Sign in to react" : type}
-                        aria-disabled={isDisabled}
+                        disabled={isDisabled}
                         onClick={() => {
                           setSelectedReaction({
                             reactionType: type,
@@ -112,7 +112,7 @@ const PostGrid = () => {
                           userReactions[post?._id] === type &&
                             selectedReaction?.blogId === post?._id
                         )}
-                      </div>
+                      </button>
                     );
                   })}
                   <LabelText>{totalReaction}</LabelText>
