@@ -140,13 +140,11 @@ const usePostLogic = () => {
                 setIsLoading(false);
                 return
             }
-            // fetchPosts().then();
             setIsLoading(false);
         }catch (err){
             setIsError(true)
             setIsLoading(false)
             console.error("Error :", err);
-            // toast.error("Failed to update post ima. Please try again later.");
         }
     }
     const postsCount = posts?.posts?.length
