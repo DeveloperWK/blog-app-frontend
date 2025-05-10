@@ -105,9 +105,7 @@ const BlogPost = async ({ params }) => {
         </div>
 
         {/* Bookmark Button
-
            <BookMarkBtn postId={id} />
-
            */}
       </div>
 
