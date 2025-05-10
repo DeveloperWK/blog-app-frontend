@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "@/app/context/AuthContext/AuthProvider";
 import {toast} from "react-toastify";
@@ -7,6 +7,7 @@ const useSignInLogic = () => {
     const [isSuccess, setIsSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [loginAttempts, setLoginAttempts] = useState(0);
     const router = useRouter();
     const {signIn} = useAuth()
     const path = usePathname()
@@ -25,6 +26,7 @@ const useSignInLogic = () => {
                 setIsError(true);
                 setIsSuccess(false);
                 setIsLoading(false);
+                setLoginAttempts((prev)=>prev+1)
                 return
             }
             if(result.is2FAEnabled){
@@ -42,21 +44,26 @@ const useSignInLogic = () => {
             router.push('/');
             }
             setIsSuccess(true);
+            setLoginAttempts(0)
             setIsError(false);
             setIsLoading(false);
         }catch (err){
             setIsError(true)
             setIsLoading(false)
             setIsSuccess(false)
+            setLoginAttempts((prev)=>prev+1)
             console.error("Sign-in Error :", err);
             toast.error("Failed to Sign-in. Please try again later.");
         }
     };
+
+
     return {
         onSubmit,
         isSuccess,
         isLoading,
         isError,
+        loginAttempts
     };
 }
 export default useSignInLogic;

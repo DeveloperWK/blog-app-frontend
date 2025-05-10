@@ -6,6 +6,7 @@ import Flex from "../components/Flex";
 import Paragraph from "../components/Paragraph";
 import SmallText from "../components/SmallText";
 import Root from "../home_layout/Root";
+import {Suspense} from "react";
 
 function Search() {
   return (
@@ -43,4 +44,14 @@ function Search() {
     </Root>
   );
 }
-export default Search
+const SearchWithSuspense = () => {
+  return (
+      <Suspense fallback={ <div className="fixed inset-0 bg-black text-white flex justify-center items-center z-50">
+        Loading...
+      </div>}>
+
+   <Search/>
+        </Suspense>
+  )
+}
+export default SearchWithSuspense;

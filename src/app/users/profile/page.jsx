@@ -22,7 +22,7 @@ function ProfilePage() {
     const [isError, setIsError] = useState(false);
     const {deletePost,writerPosts} = usePostLogic()
     const router = useRouter()
-    const {signOut,setRefresh} = useAuth()
+    const {signOut} = useAuth()
     const [tempProfile, setTempProfile] = useState({
         firstName:"",
         lastName:"",
@@ -72,12 +72,10 @@ function ProfilePage() {
                 setIsLoading(false);
                 return;
             }
-            const updatedUser = await fetchUser()
-            setUser(updatedUser)
-            document.cookie = `role=${updatedUser?.role}; path=/; `;
-            localStorage.setItem('role',updatedUser?.role)
-            window.location.reload()
             setIsLoading(false);
+            toast.success("Profile updated successfully.")
+            signOut()
+            router.push("/auth/sign-in")
         }catch (err){
             console.error("Error :", err);
             setIsError(true)

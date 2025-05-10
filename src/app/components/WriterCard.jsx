@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-function WriterCard({ name, role, bio, avatarUrl }) {
+function WriterCard({ firstName,lastName, role, bio, avatarUrl }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -19,7 +19,7 @@ function WriterCard({ name, role, bio, avatarUrl }) {
                     alt={`${name}'s avatar`}
                 />
                 <div>
-                    <h2 className="text-lg font-semibold">{name}</h2>
+                    <h2 className="text-lg font-semibold">{`@ ${firstName} ${lastName || ""}`}</h2>
                     <p className="text-sm text-gray-400">{role}</p>
                 </div>
             </div>

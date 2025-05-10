@@ -3,6 +3,7 @@ import {toast} from "react-toastify";
 
 const usePostLogic = () => {
     const [posts, setPosts] = useState([]);
+    const [post, setPost] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [writerPosts, setWriterPosts] = useState([]);
     const [error, setIsError] = useState(null);
@@ -10,7 +11,7 @@ const usePostLogic = () => {
         try {
             setIsLoading(true);
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post`,{
-               cache: 'no-cache',
+                cache: 'no-cache',
             })
             const result = await response.json();
             if(!response.ok){
@@ -71,11 +72,89 @@ const usePostLogic = () => {
             toast.error("Failed to delete post. Please try again later.");
         }
     }
+    const fetchPost = async (id) => {
+        try {
+            setIsLoading(true);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post/${id}`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+            })
+            if (!response.ok) {
+                setIsError(true);
+                setIsLoading(false);
+                return
+            }
+            const result = await response.json();
+            setPost(result?.post)
+            setIsLoading(false);
+            return result?.post
+        }catch (err){
+            setIsError(true)
+            setIsLoading(false)
+            console.error("Error :", err);
+            toast.error("Failed to delete post. Please try again later.");
+        }
+    }
+    const updatePost = async (id, data) => {
+        try {
+            setIsLoading(true);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post/${id}`,{
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    ...data
+                }),
+            })
+            if (!response.ok) {
+                setIsError(true);
+                setIsLoading(false);
+                return
+            }
+            // fetchPosts().then();
+            setIsLoading(false);
+        }catch (err){
+            setIsError(true)
+            setIsLoading(false)
+            console.error("Error :", err);
+            toast.error("Failed to update post. Please try again later.");
+        }
+    }
+    const updatePostImage = async (id, data) => {
+        console.log(Object.fromEntries(data.entries()),)
+        try {
+            setIsLoading(true);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post/update-image/${id}`,{
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body:data,
+
+            })
+            if (!response.ok) {
+                setIsError(true);
+                setIsLoading(false);
+                return
+            }
+            // fetchPosts().then();
+            setIsLoading(false);
+        }catch (err){
+            setIsError(true)
+            setIsLoading(false)
+            console.error("Error :", err);
+            // toast.error("Failed to update post ima. Please try again later.");
+        }
+    }
     const postsCount = posts?.posts?.length
-useEffect(() => {
-    fetchPosts().then()
-    fetchPostsByWriter().then()
-},[])
+    useEffect(() => {
+        fetchPosts().then()
+        fetchPostsByWriter().then()
+    },[])
     return {
         posts,
         loading: isLoading,
@@ -83,6 +162,10 @@ useEffect(() => {
         deletePost,
         postsCount,
         writerPosts,
+        fetchPost,
+        post,
+        updatePost,
+        updatePostImage
     }
 }
 export default usePostLogic;

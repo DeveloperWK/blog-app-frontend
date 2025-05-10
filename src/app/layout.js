@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import {ToastContainer} from "react-toastify";
 import {AuthProvider} from "@/app/context/AuthContext/AuthProvider";
+import {PostProvider} from "@/app/context/PostContext/PostProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,7 +19,9 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.variable} antialiased w-full mx-auto`}>
       <AuthProvider>
       <ToastContainer/>
+          <PostProvider>
         {children}
+          </PostProvider>
     </AuthProvider>
       </body>
     </html>

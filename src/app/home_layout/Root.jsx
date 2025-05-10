@@ -2,6 +2,7 @@
 import useClick from "@/app/hooks/useClick";
 import Navbar from "@/app/layout/Navbar";
 import LeftAside from "./LeftAside";
+import CategoryFilter from "@/app/components/CategoryFilter";
 
  function Root({ children }) {
   const { bar, content } = useClick();
