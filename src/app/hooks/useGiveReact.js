@@ -97,4 +97,8 @@ const useGiveReact = () => {
     userReactions,
   };
 };
+<<<<<<< HEAD
 export default useGiveReact;
+=======
+export default useGiveReact;
+>>>>>>> refactor/check
