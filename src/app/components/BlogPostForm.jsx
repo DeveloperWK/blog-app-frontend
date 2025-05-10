@@ -6,92 +6,23 @@ import {toast} from "react-toastify";
 import {useAuth} from "@/app/context/AuthContext/AuthProvider";
 import useCategoriesLogic from "@/app/hooks/useCategoriesLogic";
 
- function BlogPostForm() {
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        formState: { errors },
-        reset,
-    } = useForm({
-        mode: 'onBlur',
-        defaultValues: {
-            title: '',
-            body: '',
-            category: '',
-            subcategory: '',
-            image: null,
-        }
-    });
+ function BlogPostForm({
+     categories,
+     subcategories,
+     handleCategoryChange,
+     handleImageChange,
+     onSubmit,
+     preview,
+     isLoading,
+     fileInputRef,
+     errors,
+     register,
+     isError,
 
-    const [preview, setPreview] = useState(null);
-    const [subcategories, setSubcategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-     const fileInputRef = useRef(null);
-     const {categories} = useCategoriesLogic()
-     const {user} = useAuth()
-    const handleCategoryChange = (e) => {
-        const category = e.target.value;
-        setSelectedCategory(category);
-    };
-
-    const onSubmit = async (data) => {
-
-try {
- setIsLoading(true);
-    const formData = new FormData();
-    formData.append('title', data.title);
-    formData.append('body', data.body);
-    formData.append('category', selectedCategory);
-    formData.append('author',user.userId);
-    if (data.image instanceof File) {
-        formData.append('image', data.image);
-    }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}blog-post`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${user?.token}`
-        },
-        body:formData
-    });
-    if (!res.ok) {
-       setIsError(true);
-       setIsLoading(false);
-       return
-    }
-    setIsError(false);
-    setIsLoading(false);
-    reset();
-    setPreview(null);
-    setSelectedCategory('');
-    setSubcategories([]);
-    toast.success("Blog post published successfully");
-}catch (err) {
-            console.error('Error:', err);
-            setIsError(true);
-            setIsLoading(false);
-
-}
-    };
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setValue('image', file);
-            const reader = new FileReader();
-            reader.onload = (e) => {
-
-                setPreview(e.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
+                       }) {
     return (
         <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={onSubmit}
             encType="multipart/form-data"
             className="max-w-2xl mx-auto p-6 bg-gray-900 text-white rounded-lg shadow-md"
         >

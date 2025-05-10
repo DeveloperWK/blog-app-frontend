@@ -76,11 +76,6 @@ try {
             fetchFilterPosts().then()
         }
     },[userReactions])
-    // useEffect(()=>{
-    //     if(isError) {
-    //         setIsError(false)
-    //     }
-    // },[isError])
     return{
         selectedReaction,
         setSelectedReaction,
