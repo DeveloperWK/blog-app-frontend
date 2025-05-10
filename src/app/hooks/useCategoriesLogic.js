@@ -46,7 +46,7 @@ const useCategoriesLogic = () => {
       }
     }
     useEffect(() => {
-        fetchCategories();
+        fetchCategories().then()
     }, []);
 
     useEffect(()=>{

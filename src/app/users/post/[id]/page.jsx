@@ -1,6 +1,7 @@
 import Paragraph from "@/app/components/Paragraph";
 import Image from "next/image";
 import BackToTop from "@/app/components/BackToTop";
+import CommentSection from "@/app/components/CommentSections";
 
 
 export async function generateMetadata({
@@ -95,7 +96,7 @@ const BlogPost  = async ({params})=>{
                 />
                 <div>
                     <p className="text-lg font-semibold text-gray-200">
-                        {post?.post?.author.firstName || "Owner"}
+                        {post?.post?.author?.firstName || "Owner"}
                     </p>
                     <p className="text-sm text-gray-400">
                         {post?.post?.updatedAt
@@ -113,6 +114,9 @@ const BlogPost  = async ({params})=>{
                 <Paragraph>{post?.post?.body}</Paragraph>
             </div>
             <BackToTop />
+            <div className="flex justify-center mt-10">
+             <CommentSection postId={id} />
+            </div>
         </main>
 
     )

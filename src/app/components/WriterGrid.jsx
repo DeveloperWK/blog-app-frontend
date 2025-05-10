@@ -32,7 +32,7 @@ const WriterGrid = () => {
         }
     }
     useEffect(() => {
-        fetchWriter()
+        fetchWriter().then()
     },[])
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -42,6 +42,7 @@ const WriterGrid = () => {
                 writers?.map((writer) => (
                 <WriterCard key={writer?._id} {...writer} />
             ))}
+            {error && !loading && <div className="text-center text-white text-xl">Failed to fetch writers. Please try again later.</div> }
         </div>
     )
 }

@@ -5,15 +5,12 @@ import LabelText from "@/app/components/LabelText";
 import Paragraph from "@/app/components/Paragraph";
 import MutedText from "@/app/components/MutedText";
 import {SiDatefns} from "react-icons/si";
-import { BiLike } from "react-icons/bi";
-import {FaHeart, FaRegLaughBeam} from "react-icons/fa";
-import { FaRegLightbulb } from "react-icons/fa6";
 import {usePostFeed} from "@/app/context/PostContext/PostProvider";
-import { useState } from "react";
 import useGiveReact from "@/app/hooks/useGiveReact";
 import Pagination from "@/app/components/Pagination";
 import usePostFilter from "@/app/hooks/usePostFilter";
 import {useAuth} from "@/app/context/AuthContext/AuthProvider";
+import Link from "next/link";
 const PostGrid = () => {
     const {postsFeed,hasSearched,searchResults} = usePostFeed()
     const {handlePageChange,isLoading} = usePostFilter()
@@ -22,7 +19,7 @@ const PostGrid = () => {
     const postsToRender = hasSearched ? searchResults : postsFeed?.posts || [];
     return (
         <>
-            {isLoading ? <>Loading...</> : postsToRender.length === 0 ? (
+            {isLoading ? <><Paragraph>Loading...</Paragraph></> : postsToRender.length === 0 ? (
                 <Paragraph className="text-white h-screen w-full flex justify-center items-center pt-5">No posts found</Paragraph>
             ) : (
                 postsToRender.map((post) => {
@@ -44,14 +41,22 @@ const PostGrid = () => {
                                     </MutedText>
                                 </div>
                                 <div className="w-[30%]">
-                                    <Image src={post?.image} width={100} height={100} alt="post-image" className="w-full" />
+                                    <Image src={post?.image} width={300} height={300} alt="post-image" className="w-full" quality={100}  />
                                 </div>
                             </Flex>
 
                             <Flex className="mt-4 gap-x-3">
                                 <Flex className="gap-x-2">
                                     <SiDatefns className="text-primary text-10" />
-                                    <LabelText>{post?.updatedAt?.slice(0, 10)}</LabelText>
+                                    <LabelText className="text-sm text-gray-400">
+                                        {post?.updatedAt
+                                            ? new Date(post?.updatedAt).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "numeric",
+                                            })
+                                            : "Date Not Available"}
+                                    </LabelText>
                                 </Flex>
 
                                 <Flex className="gap-x-3 items-center flex-wrap">
@@ -78,6 +83,9 @@ const PostGrid = () => {
                                             </div>
                                         ) })}
                                     <LabelText>{totalReaction}</LabelText>
+                                </Flex>
+                                <Flex className="gap-x-2">
+                                   <Link href={`/users/post/${post?._id}`}><span className='text-blue-600 hover:underline'>Read More...</span></Link>
                                 </Flex>
                             </Flex>
                         </div>

@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { useState, useEffect } from "react";
+import {useState, useEffect, useCallback, useRef} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {usePostFeed} from "@/app/context/PostContext/PostProvider";
 
@@ -15,8 +15,12 @@ const usePostFilter = () => {
     const initialPage = parseInt(searchParams.get("page") || "1", 10);
     const [selectedCategory, setSelectedCategory] = useState(initialCategory);
     const [currentPage, setCurrentPage] = useState(initialPage);
+    const errorRef = useRef(null);
+    const fetchInProgressRef = useRef(false);
 const {setPostsFeed}=usePostFeed()
-    const fetchFilterPosts = async (category, page = 1, ) => {
+    const fetchFilterPosts = useCallback(async (category, page = 1, ) => {
+        if (fetchInProgressRef.current) return;
+        fetchInProgressRef.current = true;
         try {
             // Build the query parameters
             const params = new URLSearchParams();
@@ -39,13 +43,16 @@ const {setPostsFeed}=usePostFeed()
             setPostsFeed(result || []);
             setTotalPages(result?.totalPages || 1);
             setIsLoading(false);
+            setError(null);
+            fetchInProgressRef.current = false;
         } catch (err) {
             setError(err.message || "An error occurred");
             setIsLoading(false);
             console.error("Error fetching posts:", err);
-            toast.error("Failed to fetch posts. Please try again later.");
+
         }
-    };
+    },[setPostsFeed])
+
 
     // Handle page change
     const handlePageChange = (newPage) => {
@@ -67,18 +74,22 @@ const {setPostsFeed}=usePostFeed()
         setCurrentPage(1);
     };
     useEffect(() => {
-        fetchFilterPosts().then()
-    }, []);
-
-    // Update URL and fetch posts when parameters change
+        if (error) {
+            toast.error("Failed to fetch posts. Please try again later.");
+        }
+    }, [error]);
     useEffect(() => {
         const params = new URLSearchParams();
         if (selectedCategory) params.set("category", selectedCategory);
         params.set("page", currentPage.toString());
         const newUrl = `?${params.toString()}`;
         router.push(newUrl);
+        const timeoutId = setTimeout(() => {
         fetchFilterPosts(selectedCategory, currentPage).then()
-    }, [selectedCategory, currentPage]);
+        },100)
+        return () => clearTimeout(timeoutId)
+
+    }, [selectedCategory, currentPage, fetchFilterPosts,router]);
 
     return {
         filterPosts,
