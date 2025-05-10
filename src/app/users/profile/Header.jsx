@@ -1,8 +1,4 @@
 import { Edit, Trash2, X } from "lucide-react";
-<<<<<<< HEAD
-=======
-
->>>>>>> refactor/check
 const Header = ({ isEditing, onEdit, onDelete, onCancel }) => {
   return (
     <div className="bg-blue-800 p-4 text-white flex justify-between items-center">
