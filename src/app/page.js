@@ -5,8 +5,9 @@ import {Suspense} from "react";
 function Home() {
   return (
     <Root>
-      <div className="bg-bg w-[90%] mx-auto pt-10 pb-10 px-2 md:pt-16">
+      <div className="mt-10 h-fullbg-bg w-[90%] mx-auto pt-10 pb-10 px-2  md:mt-0">
 <PostGrid/>
+
       </div>
     </Root>
   );
@@ -15,7 +16,7 @@ const HomeWithSuspense = () => {
   return (
       <Suspense
           fallback={
-              <div className="fixed inset-0 bg-black text-white flex justify-center items-center z-50">
+              <div className="fixed inset-0 min-h-full bg-black text-white flex justify-center items-center z-50">
                   Loading...
               </div>
           }

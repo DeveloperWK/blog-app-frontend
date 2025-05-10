@@ -18,14 +18,13 @@ const usePostFilter = () => {
 const {setPostsFeed}=usePostFeed()
     const fetchFilterPosts = async (category, page = 1, ) => {
         try {
-            setIsLoading(true);
-// setPostsFeed([])
             // Build the query parameters
             const params = new URLSearchParams();
             if (category) params.set("category", category);
             params.set("page", page.toString());
             let url = `${process.env.NEXT_PUBLIC_SERVER_URI}blog-post?page=${page}`;
             if (category) url += `&category=${encodeURIComponent(category)}`;
+            setIsLoading(true);
             const response = await fetch(url, { cache: "no-cache" });
             const result = await response.json();
 
@@ -37,8 +36,8 @@ const {setPostsFeed}=usePostFeed()
             }
 
             setIsFilter(!!category);
-            setPostsFeed(result.posts || []);
-            setTotalPages(result.totalPages || 1);
+            setPostsFeed(result || []);
+            setTotalPages(result?.totalPages || 1);
             setIsLoading(false);
         } catch (err) {
             setError(err.message || "An error occurred");
@@ -68,7 +67,7 @@ const {setPostsFeed}=usePostFeed()
         setCurrentPage(1);
     };
     useEffect(() => {
-        fetchFilterPosts();
+        fetchFilterPosts().then()
     }, []);
 
     // Update URL and fetch posts when parameters change
@@ -78,7 +77,7 @@ const {setPostsFeed}=usePostFeed()
         params.set("page", currentPage.toString());
         const newUrl = `?${params.toString()}`;
         router.push(newUrl);
-        fetchFilterPosts(selectedCategory, currentPage);
+        fetchFilterPosts(selectedCategory, currentPage).then()
     }, [selectedCategory, currentPage]);
 
     return {

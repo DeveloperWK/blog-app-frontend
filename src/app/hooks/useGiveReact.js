@@ -61,7 +61,6 @@ try {
         ...prev,
         [selectedReaction.blogId]: isRemoving ? null : selectedReaction?.reactionType,
     }));
-    console.log(result)
 }catch (err){
             setIsError(true)
     console.error("Error :", err);

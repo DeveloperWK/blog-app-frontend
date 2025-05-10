@@ -5,10 +5,16 @@ import PostContext from "@/app/context/PostContext/PostContext";
 
 export const PostProvider = ({children}) => {
     const [postsFeed, setPostsFeed] = useState([]);
+    const [hasSearched, setIsHasSearched] = useState(false);
+const [searchResults,setSearchResults] = useState([])
 
     const value = {
        postsFeed,
         setPostsFeed,
+        hasSearched,
+        setIsHasSearched,
+        searchResults,
+        setSearchResults,
     }
     return <PostContext.Provider value={value}>{children}</PostContext.Provider>
 }

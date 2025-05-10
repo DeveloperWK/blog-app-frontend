@@ -1,7 +1,10 @@
+"use client"
 import { CiSearch } from "react-icons/ci";
 import Flex from "../components/Flex";
+import useSearch from "@/app/hooks/useSearch";
 
 function SearchBox({className}) {
+    const {handleQueryChange,searchQuery} = useSearch()
     return (
         <Flex
             className={
@@ -11,6 +14,8 @@ function SearchBox({className}) {
             <CiSearch className="text-primary text-lg mr-3" />
             <input
                 type="search"
+                onChange={handleQueryChange}
+                value={searchQuery}
                 className="w-full text-md text-secondary focus:border-none outline-none"
                 placeholder="Search here >>>>>"
             />
