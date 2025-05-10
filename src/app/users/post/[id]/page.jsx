@@ -78,28 +78,37 @@ const BlogPost = async ({ params }) => {
         quality={100}
       />
       <HeroText>{post?.post?.title}</HeroText>
-      <div className="flex items-center gap-4 mb-10 mt-4">
-        <Image
-          src={post?.post?.author?.avatar || "/logo.jpg"}
-          alt="Author"
-          width={50}
-          height={50}
-          className="rounded-full border border-gray-700 shadow-sm"
-        />
-        <div>
-          <p className="text-lg font-semibold text-gray-200">
-            {post?.post?.author?.firstName || "Owner"}
-          </p>
-          <p className="text-sm text-gray-400">
-            {post?.post?.updatedAt
-              ? new Date(post?.post?.updatedAt).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              : "Date Not Available"}
-          </p>
+
+      <div className="flex items-center justify-between mb-10 mt-4">
+        <div className="flex items-center gap-4">
+          <Image
+            src={post?.post?.author?.avatar || "/logo.jpg"}
+            alt="Author"
+            width={50}
+            height={50}
+            className="rounded-full border border-gray-700 shadow-sm"
+          />
+          <div>
+            <p className="text-lg font-semibold text-gray-200">
+              {post?.post?.author?.firstName || "Owner"}
+            </p>
+            <p className="text-sm text-gray-400">
+              {post?.post?.updatedAt
+                ? new Date(post?.post?.updatedAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
+                : "Date Not Available"}
+            </p>
+          </div>
         </div>
+
+        {/* Bookmark Button
+
+           <BookMarkBtn postId={id} />
+
+           */}
       </div>
 
       <div className="prose prose-invert max-w-none text-lg leading-relaxed">

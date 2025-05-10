@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaBarsProgress } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
-import user_logo from "../../../../public/images/user_logo.png";
+import userLogo from "../../../../public/images/programmer.png";
 import Flex from "../../components/Flex";
 
 function DashBoardNavbar({ bar }) {
@@ -42,7 +42,7 @@ function DashBoardNavbar({ bar }) {
                 <Link href="/users/profile" className="md:order-4">
                   <div className="w-10 h-10 rounded-full overflow-hidden border border-solid border-border_color hover:border-primary transition-colors duration-200 flex items-center justify-center md:w-8 md:h-8">
                     <Image
-                      src={user_logo}
+                      src={userLogo}
                       alt="User profile"
                       width={32}
                       height={32}
