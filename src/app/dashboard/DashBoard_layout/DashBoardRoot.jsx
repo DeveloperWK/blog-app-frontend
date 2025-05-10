@@ -1,12 +1,11 @@
 "use client";
 
+import DashBoardNavbar from "@/app/dashboard/DashBoard_layout/Navbar";
 import useClick from "@/app/hooks/useClick";
 import LeftAside from "./LeftAside";
-import DashBoardNavbar from "@/app/dashboard/DashBoard_layout/Navbar";
 
 export default function DashBoardRoot({ children }) {
   const { bar, content } = useClick();
-
 
   return (
     <>
