@@ -10,3 +10,8 @@
     --color-border_color: #333333; /* Soft borders between elements */
     --color-quote_border: #00ffff; /* Border color for quotes */
 }
+* {
+   body {
+       background-color: var(--color-bg);
+   }
+}
