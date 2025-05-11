@@ -40,15 +40,9 @@ export const AuthProvider = ({ children }) => {
   }, [user]);
   const handleSignIn = ({ token, role, userId }) => {
     // Set cookies for server-side auth
-    if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
-      document.cookie = `token=${token}; path=/; secure; httpOnly;`;
-      document.cookie = `role=${role}; path=/; secure; httpOnly;`;
-      document.cookie = `userId=${userId}; path=/; secure; httpOnly;`;
-    } else {
-      document.cookie = `token=${token}; path=/;`;
-      document.cookie = `role=${role}; path=/;`;
-      document.cookie = `userId=${userId}; path=/;`;
-    }
+    document.cookie = `token=${token}; path=/;`;
+    document.cookie = `role=${role}; path=/;`;
+    document.cookie = `userId=${userId}; path=/;`;
     setUser({
       token,
       role,
@@ -58,19 +52,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleSignOut = () => {
-    if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
-      document.cookie =
-        "token=; path=/; secure; httpOnly; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      document.cookie =
-        "role=; path=/; secure; httpOnly; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      document.cookie =
-        "userId=; path=/; secure; httpOnly; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    } else {
-      document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      document.cookie = "role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      document.cookie =
-        "userId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    }
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "userId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
     if (typeof window !== "undefined") {
       localStorage.removeItem("token");
       localStorage.removeItem("role");

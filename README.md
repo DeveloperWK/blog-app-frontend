@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Blog App Frontend Documentation
 
-## Getting Started
+## Overview
 
-First, run the development server:
+The Blog App Frontend is a Next.js-based application designed to provide a platform for users to create, manage, and interact with blog posts. It includes features for user authentication, profile management, post creation, and an admin dashboard for managing users and categories.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+- **Authentication**: Sign-up, sign-in, password reset, and two-factor authentication.
+- **User Profiles**: Manage personal information, bio, and professional details.
+- **Blog Management**: Create, edit, and delete blog posts with support for categories and subcategories.
+- **Admin Dashboard**: Manage users, categories, and view statistics.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
+
+## Project Structure
+
+The project is organized as follows:
+
+```
+src/
+  app/
+    auth/                # Authentication pages (sign-in, sign-up, etc.)
+    components/          # Reusable UI components
+    context/             # Context providers for authentication and posts
+    dashboard/           # Admin dashboard pages
+    home_layout/         # Layout for the home page
+    hooks/               # Custom React hooks
+    users/               # User-related pages (profile, posts, etc.)
+    writers/             # Writer-specific pages
+  middleware.js          # Middleware for route protection
+public/                  # Static assets (images, favicon, etc.)
+next.config.mjs          # Next.js configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Key Components
 
-You can start editing the page by modifying `app/page.jsx`. The page auto-updates as you edit the file.
+### Authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Sign-In**: Located at `src/app/auth/sign-in/page.jsx`. Includes form validation and error handling.
+- **Sign-Up**: Located at `src/app/auth/sign-up/page.jsx`. Supports user roles and avatar upload.
+- **Two-Factor Authentication**: Implemented in `src/app/auth/confirm-2fa/page.jsx`.
 
-## Learn More
+### User Profiles
 
-To learn more about Next.js, take a look at the following resources:
+- **Profile Page**: Located at `src/app/users/profile/page.jsx`. Allows users to edit their information and manage posts.
+- **Professional Section**: Located at `src/app/users/profile/ProfessionalSection.jsx`. Handles roles and occupations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Blog Management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Write Post**: Located at `src/app/users/post/write-post/page.jsx`. Includes a form for creating new blog posts.
+- **Edit Post**: Located at `src/app/users/post/edit-post/[id]/page.jsx`. Allows users to update existing posts.
 
-## Deploy on Vercel
+### Admin Dashboard
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Dashboard Root**: Located at `src/app/dashboard/DashBoard_layout/DashBoardRoot.jsx`. Provides the main layout for admin pages.
+- **User Management**: Located at `src/app/dashboard/all-users/page.jsx`. Allows admins to view and delete users.
+- **Category Management**: Located at `src/app/dashboard/categories/page.jsx`. Includes functionality for creating and deleting categories.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Middleware
+
+The middleware (`src/middleware.js`) handles route protection based on user roles and authentication status.
+
+## Configuration
+
+- **Next.js Config**: Located at `next.config.mjs`. Includes experimental features and image optimization settings.
+- **Environment Variables**: Ensure the following variables are set in your `.env` file:
+  - `NEXT_PUBLIC_SERVER_URI`: The base URL for the backend server.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd blog-app-frontend
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Contributing
+
+Contributions are welcome! Please follow the standard Git workflow:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Submit a pull request with a detailed description of your changes.
+
+## License
+
+This project is licensed under the MIT License.
+
+**write manually link address for see dashboard**
+
+### Admin Login
+
+email: wasifuleyasin2016@gmail.com
+pass : #N|bj1<P_g!1
+
+### Writer Login
+
+email: wasifulkabir2023@gmail.com
+pass : 8KHl3R|y-RoQ
+
