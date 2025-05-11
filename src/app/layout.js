@@ -12,6 +12,10 @@ const poppins = Poppins({
 export const metadata = {
   title: "CodeVerse — A Developer's Diary",
   description: "A Developer Blog Platform",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
 };
 export default function RootLayout({ children }) {
   return (
