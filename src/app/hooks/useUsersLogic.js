@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext/AuthProvider";
 const useUsersLogic = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { hasRole } = useAuth();
   const fetchUsers = async () => {
     try {
       setLoading(true);
@@ -11,6 +13,10 @@ const useUsersLogic = () => {
         `${process.env.NEXT_PUBLIC_SERVER_URI}admin/users`,
         {
           cache: "no-cache",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const result = await response.json();
@@ -37,6 +43,10 @@ const useUsersLogic = () => {
         )}`,
         {
           cache: "no-cache",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const result = await response.json();
@@ -63,6 +73,7 @@ const useUsersLogic = () => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -82,8 +93,9 @@ const useUsersLogic = () => {
   };
   const usersCount = users?.length;
   useEffect(() => {
+    if (!hasRole("admin")) return;
     fetchUsers();
-  }, []);
+  }, [hasRole]);
   return {
     users,
     loading,

@@ -1,4 +1,3 @@
-import { useAuth } from "@/app/context/AuthContext/AuthProvider";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -8,7 +7,6 @@ const useCategoriesLogic = () => {
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const { user } = useAuth();
   const fetchCategories = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}categories`, {
       cache: "no-cache",
@@ -31,7 +29,7 @@ const useCategoriesLogic = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
 
           body: JSON.stringify({
@@ -63,7 +61,7 @@ const useCategoriesLogic = () => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );

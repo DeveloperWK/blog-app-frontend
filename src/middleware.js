@@ -4,9 +4,8 @@ export function middleware(req) {
   const url = req.nextUrl.pathname;
   const role = req.cookies.get("role")?.value;
   const token = req.cookies.get("token")?.value;
-
-  const isEditPost = url.startsWith("/users/post/edit-post/");
-  const isWritePost = url === "/users/post/write-post";
+  const isEditPost = url.startsWith("/users/post/edit-post");
+  const isWritePost = url.startsWith("/users/post/write-post");
   if (url.startsWith("/dashboard") && role !== "admin")
     return NextResponse.redirect(new URL("/admin", req.nextUrl));
 
@@ -19,8 +18,13 @@ export function middleware(req) {
 export const config = {
   matcher: [
     "/dashboard/:path*",
-    "/users/post/edit-post/:path*",
+    "/users/post/edit-post",
     "/users/post/write-post",
-    "/auth/:path*",
+    "/auth/sign-in",
+    "/auth/sign-up",
+    "/auth/reset-password",
+    "/auth/confirm-2fa",
+    "/auth/confirm-otp",
+    "/auth/send-reset-password-link",
   ],
 };

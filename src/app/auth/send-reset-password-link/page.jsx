@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GoMoveToBottom } from "react-icons/go";
@@ -8,6 +9,7 @@ const SendResetPasswordLink = () => {
     register,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const onSubmit = async (data) => {
@@ -27,6 +29,7 @@ const SendResetPasswordLink = () => {
         return;
       }
       setIsLoading(false);
+      router.push("/");
     } catch (err) {
       setIsError(true);
       setIsLoading(false);

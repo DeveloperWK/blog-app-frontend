@@ -33,11 +33,8 @@ const usePostFilter = () => {
         const result = await response.json();
 
         if (!response.ok) {
-          setError(result.message || "Failed to fetch posts");
+          setError(result?.message || "Failed to fetch posts");
           setIsLoading(false);
-          toast.error(
-            "Failed to fetch posts. No posts found for this category. Please try again later."
-          );
           return;
         }
 
@@ -75,7 +72,7 @@ const usePostFilter = () => {
   };
   useEffect(() => {
     if (error) {
-      toast.error("Failed to fetch posts. Please try again later.");
+      toast.error(error);
     }
   }, [error]);
   useEffect(() => {

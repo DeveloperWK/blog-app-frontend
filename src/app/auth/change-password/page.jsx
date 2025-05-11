@@ -29,6 +29,7 @@ const ChangePassword = () => {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({
             ...data,
