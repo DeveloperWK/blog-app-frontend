@@ -44,14 +44,14 @@ const useSearch = () => {
       search().then();
       setIsHasSearched(true);
     }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedQuery]);
   useEffect(() => {
     if (debouncedQuery?.length === 0) {
       setIsHasSearched(false);
       setSearchResults([]);
     }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedQuery]);
   return {
     searchQuery,
