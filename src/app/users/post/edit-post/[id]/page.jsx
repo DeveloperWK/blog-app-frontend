@@ -177,146 +177,136 @@ const EditPostPage = () => {
   }
 
   return (
-    <main className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Edit Post</h1>
+<main className="max-w-4xl mx-auto p-6 bg-gray-900 min-h-screen text-white">
+  <h1 className="text-3xl font-bold mb-6">Edit Post</h1>
 
-      {isError && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {errorMessage}
-        </div>
-      )}
+  {isError && (
+    <div className="bg-red-500/10 border border-red-600 text-red-300 px-4 py-3 rounded mb-4">
+      {errorMessage}
+    </div>
+  )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Title
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            required
-            className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
+  <form onSubmit={handleSubmit} className="space-y-6">
+    <div>
+      <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-1">
+        Title
+      </label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        value={formData.title}
+        onChange={handleInputChange}
+        required
+        className="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
+    </div>
 
-        <div>
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Category
-          </label>
-          <select
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleInputChange}
-            required
-            className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-          >
-            <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category._id} value={category._id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
+    <div>
+      <label htmlFor="category" className="block text-sm font-medium text-gray-300 mb-1">
+        Category
+      </label>
+      <select
+        id="category"
+        name="category"
+        value={formData.category}
+        onChange={handleInputChange}
+        required
+        className="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      >
+        <option value="">Select a category</option>
+        {categories.map((category) => (
+          <option key={category._id} value={category._id}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+    </div>
 
-        <div>
-          <label
-            htmlFor="body"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Content
-          </label>
-          <textarea
-            id="body"
-            name="body"
-            value={formData.body}
-            onChange={handleInputChange}
-            required
-            rows={10}
-            className="w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
+    <div>
+      <label htmlFor="body" className="block text-sm font-medium text-gray-300 mb-1">
+        Content
+      </label>
+      <textarea
+        id="body"
+        name="body"
+        value={formData.body}
+        onChange={handleInputChange}
+        required
+        rows={10}
+        className="w-full bg-gray-800 border border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
+    </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Image
-          </label>
-          <div className="flex items-center space-x-4">
-            <input
-              type="file"
-              id="image"
-              name="image"
-              onChange={handleImageChange}
-              accept="image/*"
-              ref={fileInputRef}
-              className="hidden"
-            />
-            <button
-              type="button"
-              onClick={() => fileInputRef.current.click()}
-              className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded"
-            >
-              Choose File
-            </button>
+    <div>
+      <label className="block text-sm font-medium text-gray-300 mb-1">Image</label>
+      <div className="flex items-center space-x-4">
+        <input
+          type="file"
+          id="image"
+          name="image"
+          onChange={handleImageChange}
+          accept="image/*"
+          ref={fileInputRef}
+          className="hidden"
+        />
+        <button
+          type="button"
+          onClick={() => fileInputRef.current.click()}
+          className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded text-white"
+        >
+          Choose File
+        </button>
 
-            {image && (
-              <button
-                type="button"
-                onClick={handleCancelImage}
-                className="text-red-600 hover:text-red-800"
-              >
-                Cancel Image Change
-              </button>
-            )}
-          </div>
-
-          {preview && (
-            <div className="mt-4">
-              <p className="text-sm text-gray-500 mb-2">Preview:</p>
-              <img
-                src={preview}
-                alt="Preview"
-                className="w-64 h-auto object-cover border border-gray-300 rounded"
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="flex items-center space-x-4">
-          <button
-            type="submit"
-            disabled={
-              isSubmitting || (!hasTextContentChanged() && !hasImageChanged())
-            }
-            className={`px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${
-              isSubmitting || (!hasTextContentChanged() && !hasImageChanged())
-                ? "opacity-50 cursor-not-allowed"
-                : ""
-            }`}
-          >
-            {isSubmitting ? "Updating..." : "Update Post"}
-          </button>
-
+        {image && (
           <button
             type="button"
-            onClick={() => router.back()}
-            className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+            onClick={handleCancelImage}
+            className="text-red-400 hover:text-red-600 text-sm"
           >
-            Cancel
+            Cancel Image Change
           </button>
+        )}
+      </div>
+
+      {preview && (
+        <div className="mt-4">
+          <p className="text-sm text-gray-400 mb-2">Preview:</p>
+          <img
+            src={preview}
+            alt="Preview"
+            className="w-64 h-auto object-cover border border-gray-700 rounded"
+          />
         </div>
-      </form>
-    </main>
+      )}
+    </div>
+
+    <div className="flex items-center space-x-4">
+      <button
+        type="submit"
+        disabled={
+          isSubmitting || (!hasTextContentChanged() && !hasImageChanged())
+        }
+        className={`px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition ${
+          isSubmitting || (!hasTextContentChanged() && !hasImageChanged())
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }`}
+      >
+        {isSubmitting ? "Updating..." : "Update Post"}
+      </button>
+
+      <button
+        type="button"
+        onClick={() => router.back()}
+        className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</main>
+
   );
 };
 

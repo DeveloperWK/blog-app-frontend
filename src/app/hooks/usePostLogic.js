@@ -40,6 +40,10 @@ const usePostLogic = () => {
         }blog-post/writer/${localStorage.getItem("userId")}`,
         {
           cache: "no-cache",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const result = await response.json();
@@ -66,6 +70,7 @@ const usePostLogic = () => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -74,7 +79,8 @@ const usePostLogic = () => {
         setIsLoading(false);
         return;
       }
-      fetchPosts().then();
+      fetchPosts().then(() => fetchPostsByWriter().then());
+      toast.success("Post deleted successfully.");
       setIsLoading(false);
     } catch (err) {
       setIsError(true);
@@ -91,7 +97,6 @@ const usePostLogic = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
