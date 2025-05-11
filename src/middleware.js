@@ -4,7 +4,6 @@ export function middleware(req) {
   const url = req.nextUrl.pathname;
   const role = req.cookies.get("role")?.value;
   const token = req.cookies.get("token")?.value;
-
   const isEditPost = url.startsWith("/users/post/edit-post");
   const isWritePost = url.startsWith("/users/post/write-post");
   if (url.startsWith("/dashboard") && role !== "admin")

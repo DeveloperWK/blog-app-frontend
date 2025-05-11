@@ -175,8 +175,7 @@ const EditPostPage = () => {
   if (isLoading) {
     return <div className="flex justify-center p-8">Loading post data...</div>;
   }
-
-  return (
+ return (
 <main className="max-w-4xl mx-auto p-6 bg-gray-900 min-h-screen text-white">
   <h1 className="text-3xl font-bold mb-6">Edit Post</h1>
 
@@ -185,7 +184,6 @@ const EditPostPage = () => {
       {errorMessage}
     </div>
   )}
-
   <form onSubmit={handleSubmit} className="space-y-6">
     <div>
       <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-1">
@@ -306,7 +304,6 @@ const EditPostPage = () => {
     </div>
   </form>
 </main>
-
   );
 };
 
