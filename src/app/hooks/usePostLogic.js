@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext/AuthProvider";
 
 const usePostLogic = () => {
   const [posts, setPosts] = useState([]);
@@ -7,6 +8,7 @@ const usePostLogic = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [writerPosts, setWriterPosts] = useState([]);
   const [error, setIsError] = useState(null);
+  const { hasRole } = useAuth();
   const fetchPosts = async () => {
     try {
       setIsLoading(true);
@@ -173,7 +175,9 @@ const usePostLogic = () => {
   const postsCount = posts?.posts?.length;
   useEffect(() => {
     fetchPosts().then();
-    fetchPostsByWriter().then();
+    if (hasRole("writer")) {
+      fetchPostsByWriter().then();
+    }
   }, []);
   return {
     posts,
